@@ -1,6 +1,7 @@
 package com.bezkoder.spring.security.jwt.models;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -37,6 +38,13 @@ public class User {
              joinColumns = @JoinColumn(name = "user_id"),
              inverseJoinColumns = @JoinColumn(name = "role_id"))
   private Set<Role> roles = new HashSet<>();
+  
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "userProfile_id", referencedColumnName = "id")
+  private UserProfile userProfile;
+  
+  @OneToMany(mappedBy = "userPost")
+  private List<PostEntity> posts;
 
   public User() {
   }
